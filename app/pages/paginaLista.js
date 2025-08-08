@@ -8,73 +8,108 @@ import InputLista from "../components/inputLista";
 import Label from "../components/labelLista";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from "react-native-uuid";
 
 const PaginaLista = () => {
+  // dados do produto
   const [nomeProduto, setNomeProduto] = useState("");
   const [valor] = useState(0);
   const [quantidade] = useState(0);
+
+  // lista atual
   const [lista, setLista] = useState([]);
 
-  // Função para inserir produto
+  // conjunto de listas salvas
+  const [conjuntoListas, setConjuntoListas] = useState({});
+
+  // carregar dados do AsyncStorage na abertura
+  useEffect(() => {
+    const carregarDados = async () => {
+      try {
+        const listasSalvas = await AsyncStorage.getItem("conjuntoListas");
+        if (listasSalvas) {
+          setConjuntoListas(JSON.parse(listasSalvas));
+        }
+      } catch (error) {
+        Alert.alert("Erro", "Não foi possível carregar as listas");
+      }
+    };
+    carregarDados();
+  }, []);
+
+  // inserir produto na lista atual
   const adicionarProduto = async () => {
+    // verifica se esta preenchido o nome do produto
     if (!nomeProduto || nomeProduto.trim().length === 0) {
       Alert.alert("Erro", "Preencha o nome do Produto!");
       return;
     }
-    try {
-      const agora = new Date();
-      const dataFormatada = agora
-        .toISOString()
-        .replace("T", "_")
-        .replace(/\..+/, "");
-      const idGerado = `Lista_${dataFormatada}`;
-      const item = {
-        id: idGerado,
-        nome: nomeProduto.trim(),
-        quantidade,
-        valor,
-      };
-      // chave = listCompras
-      const novaLista = [...lista, item];
-      await AsyncStorage.setItem("listaCompras", JSON.stringify(novaLista));
-      setLista(novaLista);
-      setNomeProduto("");
-    } catch (error) {
-      Alert.alert("Erro", "Erro ao adicionar produto!", error);
-    }
+    // produto - item da lista
+    const item = {
+      id: uuid.v4(),
+      nome: nomeProduto.trim(),
+      quantidade,
+      valor,
+    };
+    // lista criada - conjunto de produtos - item inserido no final da lista
+    const novaLista = [...lista, item];
+    setLista(novaLista);
+    setNomeProduto("");
   };
-  // Função para remover produto
-  const removerProduto = async (id) => {
-    try {
-      const novaLista = lista.filter((item) => item.id !== id);
-      await AsyncStorage.setItem("listaCompras", JSON.stringify(novaLista));
-      setLista(novaLista);
-    } catch (error) {
-      Alert.alert("Erro", "Erro ao remover produto:", error);
-    }
+
+  // remover produto da lista atual
+  const removerProduto = (id) => {
+    setLista(lista.filter((item) => item.id !== id));
   };
-  // Função para finalizar (limpar visualmente)
-  const finalizarLista = () => {
-    setLista([]);
-    Alert.alert("Sucesso", "Lista de compras salva com Sucesso");
+
+  // finalizar e salvar a lista atual no conjunto de listas
+  const finalizarLista = async () => {
+    //verifica de a ha produtos
+    if (lista.length === 0) {
+      Alert.alert("Erro", "Não há produtos para salvar.");
+      return;
+    }
+    // id a lista gerada
+    const agora = new Date();
+    const dataFormatada = agora
+      .toISOString()
+      .replace("T", "_")
+      .replace(/\..+/, "");
+    // nome da lista montado
+    const nomeLista = `Lista_${dataFormatada}`;
+    // inserindo no final do conjunto de listas
+    const novasListas = {...conjuntoListas,[nomeLista]: lista,
+    };
+
+    try {
+      await AsyncStorage.setItem("conjuntoListas", JSON.stringify(novasListas));
+      setConjuntoListas(novasListas);
+      // limpa lista atual
+      setLista([]);
+      Alert.alert("Sucesso", "Lista de compras salva com sucesso!");
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível salvar a lista.");
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.textoTopo}>Lista de Compras</Text>
       <View style={styles.linha} />
+
       <Label texto="Digite o nome do Produto: " />
       <InputLista
-        placeholder={"Nome de Produto"}
+        placeholder="Nome de Produto"
         value={nomeProduto}
         onChangeText={setNomeProduto}
       />
-      <View style={styles.linha} />
 
+      <View style={styles.linha} />
       <View style={styles.finalizar}>
         <BotaoAdicionar onPress={adicionarProduto} />
         <BotaoFinalizar onPress={finalizarLista} />
       </View>
+
       <View style={styles.linha} />
       <ListaCompras
         data={lista}
@@ -90,6 +125,7 @@ const PaginaLista = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
