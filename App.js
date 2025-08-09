@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import Home from "./app/pages/home";
 import PaginaLista from "./app/pages/paginaLista";
 import ConsultaLista from "./app/pages/consultaLista";
+import AlterarLista from "./app/pages/alterarLista";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";

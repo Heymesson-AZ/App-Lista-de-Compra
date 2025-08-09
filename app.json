@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "ListCompra",
-    "slug": "ListCompra",
+    "name": "O que falta?",
+    "slug": "O que falta?",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/image_listaCompra.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -17,13 +17,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/image_listaCompra.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/image_listaCompra.png"
     }
   }
 }

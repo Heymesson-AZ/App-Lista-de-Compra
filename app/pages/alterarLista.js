@@ -10,7 +10,7 @@ import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from "react-native-uuid";
 
-const PaginaLista = ( {navigation} ) => {
+const AlterarLista = () => {
   // Nome do produto
   const [nomeProduto, setNomeProduto] = useState("");
   // Valores fixos por enquanto
@@ -43,8 +43,6 @@ const PaginaLista = ( {navigation} ) => {
   const removerProduto = (id) => {
     setLista(lista.filter((item) => item.id !== id));
   };
-
-  // funcao de finalizar a lista
   const finalizarLista = async () => {
     // Verifica se a lista está vazia
     if (lista.length === 0) {
@@ -81,8 +79,7 @@ const PaginaLista = ( {navigation} ) => {
       await AsyncStorage.setItem(nomeLista, JSON.stringify(lista));
       // Limpa a lista atual
       setLista([]);
-      Alert.alert("Sucesso", `Lista de Compras salva com sucesso!`);
-      navigation.navigate("ConsultaLista");
+      Alert.alert("Sucesso", `Lista "${nomeLista}" salva com sucesso!`);
     } catch (error) {
       Alert.alert("Erro", "Não foi possível salvar a lista.");
     }
@@ -151,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PaginaLista;
+export default AlterarLista;
