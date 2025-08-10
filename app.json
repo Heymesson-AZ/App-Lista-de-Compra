@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "O que falta?",
-    "slug": "O que falta?",
+    "slug": "O-que-falta",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/image_listaCompra.png",
@@ -20,10 +20,16 @@
         "foregroundImage": "./assets/image_listaCompra.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.heymessonaz.Oquefalta"
     },
     "web": {
       "favicon": "./assets/image_listaCompra.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6a68cd47-2fd1-4609-93bf-1c6eb7f7f068"
+      }
     }
   }
 }

@@ -6,11 +6,11 @@ import { AntDesign } from "@expo/vector-icons";
 const BotaoRemover = ({ onPress, title = "Remover" }) => {
   return (
     <TouchableOpacity style={[styles.button, { backgroundColor: "#f44336" }]} onPress={onPress}>
-      <AntDesign name="delete" size={20} color="#fff" />
+      <AntDesign name="delete" size={18} color="#fff" style={styles.icon} />
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -18,12 +18,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     borderRadius: 8,
-    marginVertical: 5,
+    marginVertical: 6,
+  },
+  icon: {
+    marginRight: 6,
   },
   text: {
     color: "#fff",
     fontWeight: "bold",
-    marginLeft: 8,
+    fontSize: 14,
   },
 });
 

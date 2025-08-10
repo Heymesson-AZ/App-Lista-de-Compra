@@ -10,10 +10,10 @@ const Label = ({texto}) => {
 };
 const styles = StyleSheet.create({
   text: {
-    fontSize: 18,
+    fontSize: 13,
     color: "#333",
     fontWeight: "bold",
-    textAlign: "center",
+    textAlign: "left",
     marginBottom: 10,
   }
 });

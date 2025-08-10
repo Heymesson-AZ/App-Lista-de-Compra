@@ -1,13 +1,13 @@
-// BotaoFinalizar.js
+// BotaoAdicionar.js
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
-const BotaoFinalizar = ({ onPress, title = "Finalizar" }) => {
+const BotaoAdicionar = ({ onPress, title = "Adicionar" }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <View style={styles.content}>
-        <MaterialIcons name="done" size={24} color="#fff" />
+        <AntDesign name="pluscircle" size={24} color="#fff" />
         <Text style={styles.text}>{title}</Text>
       </View>
     </TouchableOpacity>
@@ -16,7 +16,7 @@ const BotaoFinalizar = ({ onPress, title = "Finalizar" }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#3F51B5",
+    backgroundColor: "#4CAF50",
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     flex: 1,
-    marginLeft: 8,
+    marginRight: 8,
   },
   content: {
     flexDirection: "row",
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BotaoFinalizar;
+export default BotaoAdicionar;
