@@ -25,11 +25,11 @@ const ListaItem = React.memo(({ item, index, onAlterar, onVisualizar, onRemover,
   // Separa o nome e a data a partir do nome da lista salvo no AsyncStorage
   const separarNomeData = (nomeLista) => {
     const partes = nomeLista.split("_");
-    const nome = partes[0];
-    const data = partes.slice(1).join(" ");
+    const data = partes[0]; // só a data, sem hora
+    const nome = partes.slice(2).join("_");
+
     return { nome, data };
   };
-
   const { nome, data } = separarNomeData(item.nomeLista);
   const valorTotal = calcularTotalCompra(item.itens);
 

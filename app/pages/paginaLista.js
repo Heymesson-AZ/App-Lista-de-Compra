@@ -54,7 +54,7 @@ const PaginaLista = ({ navigation }) => {
     const minutos = String(agora.getMinutes()).padStart(2, "0");
     const segundos = String(agora.getSeconds()).padStart(2, "0");
 
-    const nomeLista = `${nomeListaUsuario.trim()}_${dia}-${mes}-${ano}`;
+    const nomeLista = `${dia}-${mes}-${ano}_${horas}-${minutos}-${segundos}_${nomeListaUsuario.trim()}`;
 
     try {
       await AsyncStorage.setItem(nomeLista, JSON.stringify(lista));

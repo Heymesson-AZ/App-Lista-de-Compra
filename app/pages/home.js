@@ -12,19 +12,37 @@ const Home = ({ navigation }) => {
     try {
       const keys = await AsyncStorage.getAllKeys();
       const listaKeys = keys.filter((k) => k.includes("_"));
-      if (listaKeys.length === 0) return;
+      if (listaKeys.length === 0) {
+        setUltimaLista(null);
+        return;
+      }
 
-      // Pega a última lista
+      // Ordena alfabeticamente (que equivale a cronológica com data no início)
+      listaKeys.sort();
+
       const ultimaKey = listaKeys[listaKeys.length - 1];
       const value = await AsyncStorage.getItem(ultimaKey);
-      setUltimaLista({ nomeLista: ultimaKey, itens: JSON.parse(value) });
+
+      const partes = ultimaKey.split("_");
+      // partes[0] = "2025-08-10"
+      // partes[1] = "19-25-42"
+      // partes[2...] = nome da lista
+
+      const dataLista = partes[0]; // só a data, sem hora
+      const nomeLista = partes.slice(2).join("_");
+
+      setUltimaLista({
+        nomeLista,
+        dataLista,
+        itens: JSON.parse(value),
+      });
     } catch (error) {
       Alert.alert("Erro", "Não foi possível carregar a última lista.");
+      setUltimaLista(null);
     }
   };
 
   useFocusEffect(
-    //Memoriza uma função para evitar recriação desnecessária
     useCallback(() => {
       carregarUltimaLista();
     }, [])
@@ -53,6 +71,7 @@ const Home = ({ navigation }) => {
             <Icon name="cart-outline" size={20} color="#2e7d32" />
             <Text style={styles.lembreteNome}>{ultimaLista.nomeLista}</Text>
           </View>
+          <Text style={styles.lembreteData}>Data:  {ultimaLista.dataLista}</Text>
         </Animatable.View>
       )}
     </View>
@@ -134,5 +153,12 @@ const styles = StyleSheet.create({
   botaoTexto: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  lembreteData: {
+    fontSize: 14,
+    color: "#666",
+    fontStyle: "italic",
+    marginTop: 4,
+    marginLeft: 28,
   },
 });
