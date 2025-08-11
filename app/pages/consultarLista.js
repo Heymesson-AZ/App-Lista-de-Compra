@@ -44,13 +44,12 @@ const ListaItem = React.memo(({ item, index, onAlterar, onVisualizar, onRemover,
         <Icon name="cart-outline" size={20} color="#2e7d32" />
         <View>
           <Text style={styles.nomeLista}>{nome}</Text>
-          <Text style={styles.dataLista}>{data}</Text>
+          <Text style={styles.dataLista}>Data: {data}</Text>
           <Text style={styles.valorTotalLista}>
             Total: R$ {valorTotal.toFixed(2)}
           </Text>
         </View>
       </View>
-
       {/* Botões de ação */}
       <View style={styles.botaoLista}>
         <BotaoAlterar onPress={() => onAlterar(item.nomeLista)} />
