@@ -97,6 +97,12 @@ const ConsultarLista = ({ navigation }) => {
         : 0,
     []
   );
+  const separarNomeData = (nomeLista) => {
+    const partes = nomeLista.split("_");
+    const data = partes[0]; // só a data
+    const nome = partes.slice(2).join("_");
+    return { nome, data };
+  };
 
   /* 
     Carrega todas as listas salvas no AsyncStorage
@@ -215,7 +221,16 @@ const ConsultarLista = ({ navigation }) => {
           <View style={styles.modalContainer}>
             {listaSelecionada && (
               <>
-                <Text style={styles.modalTitulo}>{listaSelecionada.nomeLista}</Text>
+                {(() => {
+                  const { nome, data } = separarNomeData(listaSelecionada.nomeLista);
+                  return (
+                    <View style={{ alignItems: "center", marginBottom: 10 }}>
+                      <Text style={styles.modalTitulo}>{nome}</Text>
+                      <Text style={styles.dataLista}>Data: {data}</Text>
+                    </View>
+                  );
+                })()}
+
                 <View style={{ flex: 1 }}>
                   <FlatList
                     data={listaSelecionada.itens}
@@ -223,6 +238,7 @@ const ConsultarLista = ({ navigation }) => {
                     renderItem={renderProdutoModal}
                   />
                 </View>
+
                 <View style={styles.footerModal}>
                   <View style={styles.linha} />
                   <Text style={styles.totalCompra}>
