@@ -4,11 +4,11 @@
     "slug": "O-que-falta",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/image_listaCompra.png",
+    "icon": "./assets/img_app.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/img_app.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,14 +17,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/image_listaCompra.png",
+        "foregroundImage": "./assets/img_app",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.heymessonaz.Oquefalta"
     },
     "web": {
-      "favicon": "./assets/image_listaCompra.png"
+      "favicon": "./assets/img_app.png"
     },
     "extra": {
       "eas": {
